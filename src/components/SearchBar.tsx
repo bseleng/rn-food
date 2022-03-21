@@ -5,8 +5,11 @@ import { AntDesign } from '@expo/vector-icons';
 const SearchBar = () => {
   return(
     <View style={styles.wrap}>
-      <AntDesign name="search1" size={24} color="black" />
-      <TextInput style={styles.input}>Start to explore</TextInput>
+      <AntDesign name="search1" style={styles.icon} />
+      <TextInput
+        style={styles.input}
+        placeholder="Start to explore"
+      />
     </View>
   )
 }
@@ -14,15 +17,21 @@ const SearchBar = () => {
 const styles = StyleSheet.create({
   wrap: {
     flexDirection: 'row',
-    backgroundColor: '#c2c2c2',
+    backgroundColor: '#dadada',
     borderRadius: 8,
     height: 50,
-    alignItems: 'center',
-    paddingLeft: 8,
   },
   input: {
+    flex: 1,
     fontSize: 16,
+    paddingHorizontal: 8,
+  },
+  icon: {
+    alignSelf: 'center',
+    fontSize: 32,
+    color: 'black',
     paddingLeft: 8,
+
   }
 })
 
