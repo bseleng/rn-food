@@ -1,13 +1,21 @@
 import React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {Button, StyleSheet, View} from 'react-native';
 import SearchBar from "../components/SearchBar";
+import {useForm} from "react-hook-form";
+
+export type SearchValue = {
+  searchBar: string;
+};
+
 
 const SearchScreen = () => {
+  const { control, handleSubmit} = useForm<SearchValue>();
+  const onSubmit = handleSubmit((data) => console.log(data));
   return(
     <View style={styles.wrap}>
-      <Text style={styles.title}> Search Screen</Text>
       <View style={styles.searchBarWrap}>
-        <SearchBar/>
+        <SearchBar control={control}/>
+        <Button title="Submit" onPress={onSubmit}  />
       </View>
     </View>
   )

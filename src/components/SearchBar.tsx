@@ -1,14 +1,31 @@
 import React from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
+import {AntDesign} from '@expo/vector-icons';
+import {Control, Controller} from "react-hook-form";
+import {SearchValue} from "../screens/SearchScreen";
 
-const SearchBar = () => {
+
+interface IProps {
+  control: Control<SearchValue>
+}
+
+const SearchBar = ({control}:IProps) => {
   return(
     <View style={styles.wrap}>
       <AntDesign name="search1" style={styles.icon} />
-      <TextInput
-        style={styles.input}
-        placeholder="Start to explore"
+      <Controller
+        control={control}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            style={styles.input}
+            placeholder="Start to explore"
+
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+          />
+        )}
+        name="searchBar"
       />
     </View>
   )
