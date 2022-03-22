@@ -7,9 +7,10 @@ import {SearchValue} from "../screens/SearchScreen";
 
 interface IProps {
   control: Control<SearchValue>
+  onSubmit: () => void;
 }
 
-const SearchBar = ({control}:IProps) => {
+const SearchBar = ({control, onSubmit}:IProps) => {
   return(
     <View style={styles.wrap}>
       <AntDesign name="search1" style={styles.icon} />
@@ -19,10 +20,12 @@ const SearchBar = ({control}:IProps) => {
           <TextInput
             style={styles.input}
             placeholder="Start to explore"
-
+            autoCapitalize={'none'}
+            autoCorrect={false}
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
+            onEndEditing={onSubmit}
           />
         )}
         name="searchBar"

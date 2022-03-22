@@ -1,7 +1,7 @@
 import React from 'react';
-import {Button, StyleSheet, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import SearchBar from "../components/SearchBar";
-import {useForm} from "react-hook-form";
+import {useForm, useWatch} from "react-hook-form";
 
 export type SearchValue = {
   searchBar: string;
@@ -9,14 +9,19 @@ export type SearchValue = {
 
 
 const SearchScreen = () => {
-  const { control, handleSubmit} = useForm<SearchValue>();
-  const onSubmit = handleSubmit((data) => console.log(data));
-  return(
+  const {control, handleSubmit} = useForm<SearchValue>();
+  const searchTerm = useWatch({ control, name: "searchBar" })
+  const onSubmit = handleSubmit((data) => {
+      console.log(data)
+    }
+  )
+
+  return (
     <View style={styles.wrap}>
       <View style={styles.searchBarWrap}>
-        <SearchBar control={control}/>
-        <Button title="Submit" onPress={onSubmit}  />
+        <SearchBar control={control} onSubmit={onSubmit}/>
       </View>
+      <Text>{searchTerm}</Text>
     </View>
   )
 }
