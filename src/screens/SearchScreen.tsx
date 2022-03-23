@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import SearchBar from "../components/SearchBar";
-import {useForm, useWatch} from "react-hook-form";
+import {useForm} from "react-hook-form";
+
+import yelp from '../api/yelp'
 
 export type SearchValue = {
   searchBar: string;
@@ -10,18 +12,30 @@ export type SearchValue = {
 
 const SearchScreen = () => {
   const {control, handleSubmit} = useForm<SearchValue>();
-  const searchTerm = useWatch({ control, name: "searchBar" })
-  const onSubmit = handleSubmit((data) => {
-      console.log(data)
+  const searchApi = async (term: string) => {
+    const response = await yelp.get('/search', {
+      params: {
+        term,
+        limit: 50,
+        location: 'saint petersburg'
+      }
+    })
+    setResults(response.data.businesses)
+
+  }
+  const onSubmit = handleSubmit(({searchBar}) => {
+    searchApi(searchBar)
+
     }
   )
+  const [results, setResults] = useState([])
 
   return (
     <View style={styles.wrap}>
       <View style={styles.searchBarWrap}>
         <SearchBar control={control} onSubmit={onSubmit}/>
       </View>
-      <Text>{searchTerm}</Text>
+      <Text> We have found {results.length} results</Text>
     </View>
   )
 }
