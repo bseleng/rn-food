@@ -12,15 +12,26 @@ export type SearchValue = {
 
 const SearchScreen = () => {
   const {control, handleSubmit} = useForm<SearchValue>();
+  const [errorMessage, setErrorMessage] = useState('')
   const searchApi = async (term: string) => {
-    const response = await yelp.get('/search', {
-      params: {
-        term,
-        limit: 50,
-        location: 'saint petersburg'
+    try {
+      const response = await yelp.get('/search', {
+        params: {
+          term,
+          limit: 50,
+          location: 'saint petersburg'
+        }
+      })
+      setResults(response.data.businesses)
+    } catch (e) {
+      switch (e.response.status) {
+        case 400:
+          setErrorMessage('Bad request, please try again later')
+          break
+        default:
+          setErrorMessage('I am sorry, something went wrong')
       }
-    })
-    setResults(response.data.businesses)
+    }
 
   }
   const onSubmit = handleSubmit(({searchBar}) => {
@@ -33,7 +44,12 @@ const SearchScreen = () => {
   return (
     <View style={styles.wrap}>
       <View style={styles.searchBarWrap}>
-        <SearchBar control={control} onSubmit={onSubmit}/>
+        <SearchBar
+          control={control}
+          onSubmit={onSubmit}
+          errorMessage={errorMessage}
+          setErrorMessage={setErrorMessage}
+        />
       </View>
       <Text> We have found {results.length} results</Text>
     </View>
