@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import SearchBar from "../components/SearchBar";
 import {useForm} from "react-hook-form";
@@ -35,12 +35,15 @@ const SearchScreen = () => {
 
   }
   const onSubmit = handleSubmit(({searchBar}) => {
-    searchApi(searchBar)
+      searchApi(searchBar)
 
     }
   )
   const [results, setResults] = useState([])
 
+  useEffect(() => {
+    searchApi('ikra')
+  }, [])
   return (
     <View style={styles.wrap}>
       <View style={styles.searchBarWrap}>
