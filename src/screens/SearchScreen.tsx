@@ -1,9 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import SearchBar from "../components/SearchBar";
 import {useForm} from "react-hook-form";
-
-import yelp from '../api/yelp'
+import useYelpBusinessSearch from "../hooks/useYelpBusinessSearch";
 
 export type SearchValue = {
   searchBar: string;
@@ -12,38 +11,13 @@ export type SearchValue = {
 
 const SearchScreen = () => {
   const {control, handleSubmit} = useForm<SearchValue>();
-  const [errorMessage, setErrorMessage] = useState('')
-  const searchApi = async (term: string) => {
-    try {
-      const response = await yelp.get('/search', {
-        params: {
-          term,
-          limit: 50,
-          location: 'saint petersburg'
-        }
-      })
-      setResults(response.data.businesses)
-    } catch (e) {
-      switch (e.response.status) {
-        case 400:
-          setErrorMessage('Bad request, please try again later')
-          break
-        default:
-          setErrorMessage('I am sorry, something went wrong')
-      }
-    }
+  const [searchApi, errorMessage, setErrorMessage, results] = useYelpBusinessSearch()
 
-  }
   const onSubmit = handleSubmit(({searchBar}) => {
       searchApi(searchBar)
-
     }
   )
-  const [results, setResults] = useState([])
 
-  useEffect(() => {
-    searchApi('ikra')
-  }, [])
   return (
     <View style={styles.wrap}>
       <View style={styles.searchBarWrap}>
