@@ -3,6 +3,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import SearchBar from "../components/SearchBar";
 import {useForm} from "react-hook-form";
 import useYelpBusinessSearch from "../hooks/useYelpBusinessSearch";
+import ResultsList from "../components/ResultsList";
 
 export type SearchValue = {
   searchBar: string;
@@ -29,6 +30,9 @@ const SearchScreen = () => {
         />
       </View>
       <Text> We have found {results.length} results</Text>
+      <ResultsList title={'Cost Effective'}/>
+      <ResultsList title={'Big Pricer'}/>
+      <ResultsList title={'Big Spender'}/>
     </View>
   )
 }
