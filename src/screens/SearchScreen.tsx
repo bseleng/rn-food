@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import SearchBar from "../components/SearchBar";
 import {useForm} from "react-hook-form";
 import useYelpBusinessSearch from "../hooks/useYelpBusinessSearch";
@@ -9,6 +9,19 @@ export type SearchValue = {
   searchBar: string;
 };
 
+enum PriceTiers {
+  CostEffective = 1,
+  BigPricer = 2,
+  BigSpender = 3
+}
+
+type SearchResults = Record<string, any>[]
+
+const filterResults = (results:SearchResults, priceTier:PriceTiers) => {
+  if(results && results.length > 0) {
+    return results.filter(result => result.price && result.price.length === priceTier)
+  }
+}
 
 const SearchScreen = () => {
   const {control, handleSubmit} = useForm<SearchValue>();
@@ -16,11 +29,13 @@ const SearchScreen = () => {
 
   const onSubmit = handleSubmit(({searchBar}) => {
       searchApi(searchBar)
+    console.log('TEST',results)
     }
   )
 
+
   return (
-    <View style={styles.wrap}>
+    <ScrollView style={styles.wrap}>
       <View style={styles.searchBarWrap}>
         <SearchBar
           control={control}
@@ -30,10 +45,10 @@ const SearchScreen = () => {
         />
       </View>
       <Text> We have found {results.length} results</Text>
-      <ResultsList title={'Cost Effective'}/>
-      <ResultsList title={'Big Pricer'}/>
-      <ResultsList title={'Big Spender'}/>
-    </View>
+      <ResultsList title={'Cost Effective'} items={filterResults(results, PriceTiers.CostEffective)}/>
+      <ResultsList title={'Big Pricer'} items={filterResults(results, PriceTiers.BigPricer)}/>
+      <ResultsList title={'Big Spender'} items={filterResults(results, PriceTiers.BigSpender)}/>
+    </ScrollView>
   )
 }
 
