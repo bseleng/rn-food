@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import SearchBar from "../components/SearchBar";
 import {useForm} from "react-hook-form";
 import useYelpBusinessSearch from "../hooks/useYelpBusinessSearch";
@@ -29,7 +29,6 @@ const SearchScreen = () => {
 
   const onSubmit = handleSubmit(({searchBar}) => {
       searchApi(searchBar)
-    console.log('TEST',results)
     }
   )
 
@@ -44,7 +43,6 @@ const SearchScreen = () => {
           setErrorMessage={setErrorMessage}
         />
       </View>
-      <Text> We have found {results.length} results</Text>
       <ResultsList title={'Cost Effective'} items={filterResults(results, PriceTiers.CostEffective)}/>
       <ResultsList title={'Big Pricer'} items={filterResults(results, PriceTiers.BigPricer)}/>
       <ResultsList title={'Big Spender'} items={filterResults(results, PriceTiers.BigSpender)}/>
@@ -54,7 +52,6 @@ const SearchScreen = () => {
 
 const styles = StyleSheet.create({
   wrap: {
-    padding: 16,
   },
   title: {
     fontSize: 24,

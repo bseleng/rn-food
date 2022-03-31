@@ -1,5 +1,7 @@
 import React from 'react';
-import {View, StyleSheet, Text, FlatList, Image} from  'react-native'
+import {FlatList, StyleSheet, Text, View} from 'react-native'
+import ResultDetails from "./ResultDetails";
+import {indent} from "../constatns/styles";
 
 interface IProps {
   title:string;
@@ -11,19 +13,21 @@ const ResultsList = ({title, items}: IProps) => {
     return  null
   }
   return (
-    <View>
+    <View style={styles.wrap}>
       <Text style={styles.title}>{title}</Text>
       <FlatList
         data={items}
         horizontal
         showsHorizontalScrollIndicator={false}
-        keyExtractor={(item, index) => index + item.price}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => {
           return (
-            <View style={styles.item}>
-              <Text>{item.name}</Text>
-              <Image source={{uri: item.image_url}} style={styles.image}/>
-            </View>)
+            <ResultDetails
+            name={item.name}
+            image={item.image_url}
+            rating={item.rating}
+            reviews={item.review_count}
+          />)
         }}
       />
     </View>
@@ -31,14 +35,13 @@ const ResultsList = ({title, items}: IProps) => {
 }
 
 const styles = StyleSheet.create({
+  wrap: {
+    marginTop: 8,
+  },
   title: {
-    fontSize: 18
-  },
-  item: {
-    marginRight: 5
-  },
-  image: {
-    width: 50
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginLeft: indent.medium
   },
 })
 
