@@ -4,6 +4,7 @@ import SearchBar from "../components/SearchBar";
 import {useForm} from "react-hook-form";
 import useYelpBusinessSearch from "../hooks/useYelpBusinessSearch";
 import ResultsList from "../components/ResultsList";
+import {fontSize, indent} from '../constatns/styles';
 
 export type SearchValue = {
   searchBar: string;
@@ -34,7 +35,7 @@ const SearchScreen = () => {
 
 
   return (
-    <ScrollView style={styles.wrap}>
+    <View style={styles.wrap}>
       <View style={styles.searchBarWrap}>
         <SearchBar
           control={control}
@@ -43,22 +44,25 @@ const SearchScreen = () => {
           setErrorMessage={setErrorMessage}
         />
       </View>
-      <ResultsList title={'Cost Effective'} items={filterResults(results, PriceTiers.CostEffective)}/>
-      <ResultsList title={'Big Pricer'} items={filterResults(results, PriceTiers.BigPricer)}/>
-      <ResultsList title={'Big Spender'} items={filterResults(results, PriceTiers.BigSpender)}/>
-    </ScrollView>
+      <ScrollView>
+        <ResultsList title={'Cost Effective'} items={filterResults(results, PriceTiers.CostEffective)}/>
+        <ResultsList title={'Big Pricer'} items={filterResults(results, PriceTiers.BigPricer)}/>
+        <ResultsList title={'Big Spender'} items={filterResults(results, PriceTiers.BigSpender)}/>
+      </ScrollView>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   wrap: {
+    flex: 1,
   },
   title: {
-    fontSize: 24,
+    fontSize: fontSize.enormous,
 
   },
   searchBarWrap: {
-    marginTop: 8,
+    marginTop: indent.small,
   }
 })
 

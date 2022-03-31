@@ -3,7 +3,7 @@ import {StyleSheet, TextInput, View, Text} from 'react-native';
 import {AntDesign} from '@expo/vector-icons';
 import {Control, Controller} from "react-hook-form";
 import {SearchValue} from "../screens/SearchScreen";
-import {indent} from "../constatns/styles";
+import {fontSize, indent} from "../constatns/styles";
 
 
 interface IProps {
@@ -57,8 +57,8 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    fontSize: 16,
-    paddingHorizontal: 8,
+    fontSize: fontSize.big,
+    paddingHorizontal: indent.small,
   },
   errorInput: {
     borderColor: 'red',
@@ -69,14 +69,14 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontSize: 32,
     color: 'black',
-    paddingLeft: 8,
+    paddingLeft: indent.small,
   },
   errorWrap: {
     alignItems: 'flex-end',
 
   },
   errorMessage: {
-    fontSize: 10,
+    fontSize: fontSize.tiny,
     color: 'red',
   },
 })

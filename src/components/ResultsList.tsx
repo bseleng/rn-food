@@ -1,7 +1,7 @@
 import React from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native'
 import ResultDetails from "./ResultDetails";
-import {indent} from "../constatns/styles";
+import {fontSize, indent} from "../constatns/styles";
 
 interface IProps {
   title:string;
@@ -36,10 +36,10 @@ const ResultsList = ({title, items}: IProps) => {
 
 const styles = StyleSheet.create({
   wrap: {
-    marginTop: 8,
+    marginTop: indent.small,
   },
   title: {
-    fontSize: 18,
+    fontSize: fontSize.giant,
     fontWeight: 'bold',
     marginLeft: indent.medium
   },

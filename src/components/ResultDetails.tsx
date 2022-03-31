@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, View, Text, StyleSheet} from "react-native";
-import {indent} from '../constatns/styles';
+import {fontSize, indent} from '../constatns/styles';
 
 interface IProps {
   name: string;
@@ -21,7 +21,7 @@ const ResultDetails = ({name, image, rating, reviews}: IProps) => {
 
 const styles = StyleSheet.create({
   title: {
-    marginTop: 8,
+    marginTop: indent.small,
     color: 'black',
     fontSize: 14,
     fontWeight: 'bold',
@@ -30,17 +30,17 @@ const styles = StyleSheet.create({
   },
   wrap: {
     flex: 1,
-    marginTop: 8,
+    marginTop: indent.small,
   },
   image: {
     height: 120,
     width: 250,
-    marginLeft: indent.medium
-
+    marginLeft: indent.medium,
+    borderRadius: 4,
   },
   subtitle: {
     color: 'gray',
-    fontSize: 12,
+    fontSize: fontSize.small,
     fontWeight: '200',
     marginLeft: indent.medium
 
