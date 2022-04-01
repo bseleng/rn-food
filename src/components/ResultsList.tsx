@@ -4,14 +4,13 @@ import ResultDetails from "./ResultDetails";
 import {fontSize, indent} from "../constatns/styles";
 
 interface IProps {
-  title:string;
+  title: string;
   items?: Record<string, any>[];
-  navigate: (route: string) => void;
 }
 
-const ResultsList = ({title, items, navigate}: IProps) => {
-  if(!items || items.length === 0) {
-    return  null
+const ResultsList = ({title, items}: IProps) => {
+  if (!items || items.length === 0) {
+    return null
   }
   return (
     <View style={styles.wrap}>
@@ -21,15 +20,15 @@ const ResultsList = ({title, items, navigate}: IProps) => {
         horizontal
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => {
+        renderItem={({item}) => {
           return (
             <ResultDetails
-            name={item.name}
-            image={item.image_url}
-            rating={item.rating}
-            reviews={item.review_count}
-            navigate={navigate}
-          />)
+              id={item.id}
+              name={item.name}
+              image={item.image_url}
+              rating={item.rating}
+              reviews={item.review_count}
+            />)
         }}
       />
     </View>

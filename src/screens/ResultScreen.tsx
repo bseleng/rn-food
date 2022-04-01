@@ -4,12 +4,9 @@ import {fontSize} from "../constatns/styles";
 
 interface IProps {
   name: string;
-  navigation: any
 }
 
-const ResultScreen = ({name, navigation}: IProps) => {
-  // console.log('nav', navigation)
-  console.log('nav 2', navigation.getParam('name'))
+const ResultScreen = ({name}: IProps) => {
   return (
     <View>
       <Text style={styles.name}>Result Screen</Text>

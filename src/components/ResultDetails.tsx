@@ -1,27 +1,29 @@
 import React from 'react';
-import {Image, View, Text, StyleSheet, Pressable} from "react-native";
-import { Routes } from '../../App';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {fontSize, indent} from '../constatns/styles';
+import {withNavigation} from "react-navigation";
+import {Routes} from '../constatns/routes';
 
 interface IProps {
+  id: string;
   name: string;
   image: string;
   rating: number;
   reviews: number
-  navigate: (route: string, params?: any) => void;
+  navigation?: { navigate: (route: string, params: {}) => void }
 }
 
-const ResultDetails = ({name, image, rating, reviews, navigate}: IProps) => {
-  const goToResult= (name:string) => {
-    navigate(Routes.Result, {name})
+const ResultDetails = ({id, name, image, rating, reviews, navigation}: IProps) => {
+  const goToResult = () => {
+    navigation && navigation.navigate(Routes.Result, {id})
   }
   return (
     <View style={styles.wrap}>
-      <Pressable onPress={()=>goToResult(name)}>
+      <TouchableOpacity onPress={() => goToResult()}>
         <Image source={{uri: image}} style={styles.image}/>
-        <Text style={styles.title}> {name}</Text>
-        <Text style={styles.subtitle}> {rating} Stars, {reviews} Reviews</Text>
-      </Pressable>
+      </TouchableOpacity>
+      <Text style={styles.title}> {name}</Text>
+      <Text style={styles.subtitle}> {rating} Stars, {reviews} Reviews</Text>
     </View>
   )
 }
@@ -54,4 +56,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default ResultDetails
+export default withNavigation(ResultDetails)
