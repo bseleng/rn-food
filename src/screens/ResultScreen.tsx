@@ -3,14 +3,17 @@ import {View, StyleSheet, Text} from 'react-native'
 import {fontSize} from "../constatns/styles";
 
 interface IProps {
-  name: string;
+  navigation: {
+    getParam: ((paramName:string) => string)
+  }
 }
 
-const ResultScreen = ({name}: IProps) => {
+const ResultScreen = ({navigation}: IProps) => {
+  const businessesId = navigation.getParam('id')
   return (
     <View>
       <Text style={styles.name}>Result Screen</Text>
-      <Text style={styles.name}>{name}</Text>
+      <Text style={styles.name}>{businessesId}</Text>
     </View>
   )
 }
