@@ -53,7 +53,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#dadada',
     borderRadius: 8,
     height: 50,
-    marginHorizontal: indent.medium
+    marginHorizontal: indent.medium,
+    marginBottom: indent.small,
   },
   input: {
     flex: 1,

@@ -5,10 +5,11 @@ import {fontSize, indent} from "../constatns/styles";
 
 interface IProps {
   title:string;
-  items?: Record<string, any>[]
+  items?: Record<string, any>[];
+  navigate: (route: string) => void;
 }
 
-const ResultsList = ({title, items}: IProps) => {
+const ResultsList = ({title, items, navigate}: IProps) => {
   if(!items || items.length === 0) {
     return  null
   }
@@ -27,6 +28,7 @@ const ResultsList = ({title, items}: IProps) => {
             image={item.image_url}
             rating={item.rating}
             reviews={item.review_count}
+            navigate={navigate}
           />)
         }}
       />

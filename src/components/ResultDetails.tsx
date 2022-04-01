@@ -1,5 +1,6 @@
 import React from 'react';
-import {Image, View, Text, StyleSheet} from "react-native";
+import {Image, View, Text, StyleSheet, Pressable} from "react-native";
+import { Routes } from '../../App';
 import {fontSize, indent} from '../constatns/styles';
 
 interface IProps {
@@ -7,14 +8,20 @@ interface IProps {
   image: string;
   rating: number;
   reviews: number
+  navigate: (route: string, params?: any) => void;
 }
 
-const ResultDetails = ({name, image, rating, reviews}: IProps) => {
+const ResultDetails = ({name, image, rating, reviews, navigate}: IProps) => {
+  const goToResult= (name:string) => {
+    navigate(Routes.Result, {name})
+  }
   return (
     <View style={styles.wrap}>
-      <Image source={{uri: image}} style={styles.image}/>
-      <Text style={styles.title}> {name}</Text>
-      <Text style={styles.subtitle}> {rating} Stars, {reviews} Reviews</Text>
+      <Pressable onPress={()=>goToResult(name)}>
+        <Image source={{uri: image}} style={styles.image}/>
+        <Text style={styles.title}> {name}</Text>
+        <Text style={styles.subtitle}> {rating} Stars, {reviews} Reviews</Text>
+      </Pressable>
     </View>
   )
 }
@@ -33,7 +40,7 @@ const styles = StyleSheet.create({
     marginTop: indent.small,
   },
   image: {
-    height: 120,
+    height: 180,
     width: 250,
     marginLeft: indent.medium,
     borderRadius: 4,

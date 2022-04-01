@@ -6,6 +6,11 @@ import useYelpBusinessSearch from "../hooks/useYelpBusinessSearch";
 import ResultsList from "../components/ResultsList";
 import {fontSize, indent} from '../constatns/styles';
 
+
+interface IProps {
+  navigation: any
+}
+
 export type SearchValue = {
   searchBar: string;
 };
@@ -24,7 +29,8 @@ const filterResults = (results:SearchResults, priceTier:PriceTiers) => {
   }
 }
 
-const SearchScreen = () => {
+// const SearchScreen = ({navigation: {navigate}}:IProps) => {
+const SearchScreen = ({navigation}:IProps) => {
   const {control, handleSubmit} = useForm<SearchValue>();
   const [searchApi, errorMessage, setErrorMessage, results] = useYelpBusinessSearch()
 
@@ -32,7 +38,6 @@ const SearchScreen = () => {
       searchApi(searchBar)
     }
   )
-
 
   return (
     <View style={styles.wrap}>
@@ -45,9 +50,9 @@ const SearchScreen = () => {
         />
       </View>
       <ScrollView>
-        <ResultsList title={'Cost Effective'} items={filterResults(results, PriceTiers.CostEffective)}/>
-        <ResultsList title={'Big Pricer'} items={filterResults(results, PriceTiers.BigPricer)}/>
-        <ResultsList title={'Big Spender'} items={filterResults(results, PriceTiers.BigSpender)}/>
+        <ResultsList title={'Cost Effective'} items={filterResults(results, PriceTiers.CostEffective)} navigate={navigation.navigate}/>
+        <ResultsList title={'Big Pricer'} items={filterResults(results, PriceTiers.BigPricer)} navigate={navigation.navigate}/>
+        <ResultsList title={'Big Spender'} items={filterResults(results, PriceTiers.BigSpender)} navigate={navigation.navigate}/>
       </ScrollView>
     </View>
   )
@@ -56,6 +61,7 @@ const SearchScreen = () => {
 const styles = StyleSheet.create({
   wrap: {
     flex: 1,
+    paddingVertical: indent.small,
   },
   title: {
     fontSize: fontSize.enormous,
