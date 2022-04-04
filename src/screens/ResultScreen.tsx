@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, Image, ScrollView} from 'react-native'
 import yelp from '../api/yelp';
-import {fontSize} from "../constatns/styles";
+import {fontSize, indent} from "../constatns/styles";
 
 interface IProps {
   navigation: {
@@ -137,16 +137,18 @@ const ResultScreen = ({navigation}: IProps) => {
 
   return (
     <View style={styles.wrap}>
-      <Text style={styles.name}>Result Screen</Text>
       {business && (
         <>
-          <Text>{business.name}</Text>
-          <Text>{business.display_phone}</Text>
-          {business.location.display_address.map((address, i) => <Text key={i + address}>{address}</Text>)}
-          <ScrollView contentContainerStyle={styles.imagesWrap}>
-            {business.photos.map((photo, i) => <Image  key={i + photo} style={styles.image} source={{uri: photo}} />
+          <View style={styles.header}>
+            <Text style={styles.name}>{business.name}</Text>
+            <View style={styles.details}>
+              {business.display_phone &&  <Text style={styles.detailsText}>{business.display_phone}</Text>}
+              {business.location.display_address.map((address, i) => <Text style={styles.detailsText} key={i + address}>{address}</Text>)}
+            </View>
+          </View>
 
-            )}
+          <ScrollView contentContainerStyle={styles.imagesWrap}>
+            {business.photos.map((photo, i) => <Image  key={i + photo} style={styles.image} source={{uri: photo}} />)}
           </ScrollView>
         </>
 
@@ -157,17 +159,32 @@ const ResultScreen = ({navigation}: IProps) => {
 
 const styles = StyleSheet.create({
   wrap: {
+    paddingHorizontal: indent.small,
   },
   name: {
-    fontSize: fontSize.enormous
+    fontSize: fontSize.enormous,
+    flex: 7,
+
   },
+  details: {
+    flex: 3,
+  },
+  detailsText: {
+    fontSize: fontSize.tiny
+  },
+
   image: {
     height: 300,
     width: 300,
   },
   imagesWrap: {
     alignItems: 'center',
-
+  },
+  header: {
+    marginVertical: indent.small,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   }
 })
 
