@@ -6,6 +6,7 @@ export const indent = {
 }
 
 export  const fontSize = {
+  mini: 8,
   tiny: 10,
   small: 12,
   medium: 14,

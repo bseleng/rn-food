@@ -27,8 +27,8 @@ const SearchBar = ({control, onSubmit, errorMessage, setErrorMessage}: IProps) =
               autoCapitalize={'none'}
               autoCorrect={false}
               onBlur={onBlur}
-              onChangeText={() =>{
-                onChange()
+              onChangeText={(val) =>{
+                onChange(val)
                 setErrorMessage('')
               }}
               value={value}
