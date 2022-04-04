@@ -29,7 +29,6 @@ const SearchScreen = () => {
   const [searchApi, errorMessage, setErrorMessage, results] = useYelpBusinessSearch()
 
   const onSubmit = handleSubmit(({searchBar}) => {
-    console.log('searchBar',searchBar)
       searchApi(searchBar)
     }
   )
